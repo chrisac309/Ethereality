@@ -1,10 +1,9 @@
-﻿
-using KupoGames.Meter;
+﻿using KupoGames.Meter;
 using KupoGames.Abilities;
 using KupoGames.Singletons;
 using System.Collections.Generic;
-using KupoGames.Characters.CharacterStats;
 using KupoGames.Abilities.PensiveAbilities;
+using KupoGames.Characters.CharacterStats;
 
 namespace KupoGames.Characters.Cloaks
 {
@@ -12,9 +11,9 @@ namespace KupoGames.Characters.Cloaks
 
         public PensiveMeter PenMeter;
 
-        private static Dictionary<IAbility, int> _abilities = new Dictionary<IAbility, int>()
+        private static readonly Dictionary<IAbility, int> _abilities = new Dictionary<IAbility, int>()
         {
-
+            {new Spiricast(), 2 }
         };
 
         /// <summary>
@@ -49,12 +48,12 @@ namespace KupoGames.Characters.Cloaks
                   attack,
                   defense, 
                   StandardAccuracy, 
-                  StandardAvoidIAbility, 
+                  StandardAvoidability, 
                   crit,
                   weaknesses,
                   strengths,
                   immunities,
-                  abilities)
+                  _abilities)
         {
             PenMeter = new PensiveMeter();
         }

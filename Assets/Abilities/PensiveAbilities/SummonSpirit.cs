@@ -5,6 +5,9 @@ using KupoGames.Singletons;
 
 namespace KupoGames.Abilities.PensiveAbilities
 {
+    /// <summary>
+    /// Summon Spirit (Medium)  [2 CHAIN] - Summons a spirit from the available spirit pool.
+    /// </summary>
     class SummonSpirit : IAbility
     {
         public string Name { get; set; }
@@ -19,12 +22,25 @@ namespace KupoGames.Abilities.PensiveAbilities
 
         public SummonSpirit()
         {
-            Name = "";
+            Name = "Summon Spirit";
+            Description = "Summons a spirit from the available spirit pool.";
+            Chainable = true;
+            ElementType = Elements.Type.Neutral;
+            Cost = 2;
+            DamageModifier = 0.0f;
+            Priority = Priorities.Speed.Medium;
+            Passive = false;
+            Ultimate = false;
         }
 
         public bool Activate(Character caster, Character[] enemyTargets, Character[] allyTargets)
         {
-            throw new System.NotImplementedException();
+            // Select a spirit to summon
+            // Spirit = CharacterUI.ShowSummonSpiritOptions
+            Spirit s;
+            Pensiveness pen = caster as Pensiveness;
+            pen.SummonSpirit(s);
+            return false;
         }
     }
 }

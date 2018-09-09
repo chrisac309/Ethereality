@@ -13,7 +13,7 @@ namespace KupoGames.Characters
 
         #region Global standard stats
         public static int StandardAccuracy = 100;
-        public static int StandardAvoidIAbility = 5;
+        public static int StandardAvoidability = 5;
         #endregion
 
         #region Abstract Stat Modifiers
@@ -36,7 +36,7 @@ namespace KupoGames.Characters
 		private CharacterStat _attack;
 		private CharacterStat _defense;
         private CharacterStat _accuracy;
-        private CharacterStat _avoidIAbility;
+        private CharacterStat _avoidability;
 		private CharacterStat _crit;
 		private CharacterStat _maxActionMeter;
 		private CharacterStat _meterRegen;
@@ -73,7 +73,7 @@ namespace KupoGames.Characters
         /// <param name="strengths"> A list of elemental strengths that the character has. </param>
         /// <param name="immunities"> A list of elemental immunities that the character has. </param>
         /// <param name="abilities"> The abilities that this character possesses. </param>
-        public Character(int level, int cloakLevel, int health, int attack, int defense, int accuracy, int avoidIAbility, int crit, List<Elements.Type> weaknesses, List<Elements.Type> strengths, List<Elements.Type> immunities, Dictionary<IAbility, int> abilities) {
+        public Character(int level, int cloakLevel, int health, int attack, int defense, int accuracy, int avoidability, int crit, List<Elements.Type> weaknesses, List<Elements.Type> strengths, List<Elements.Type> immunities, Dictionary<IAbility, int> abilities) {
             SetLevel(level);
 			SetCloakLevel(cloakLevel);
 			SetMaxHealth(health);
@@ -82,7 +82,7 @@ namespace KupoGames.Characters
 			SetDefense(defense);
             SetStatModifiers();
             SetAccuracy(accuracy);
-            SetAvoidIAbility(avoidIAbility);
+            SetAvoidability(avoidability);
 			SetCrit(crit);
 			SetElementalWeaknesses(weaknesses);
 			SetElementalStrengths(strengths);
@@ -112,7 +112,7 @@ namespace KupoGames.Characters
                   attack: 1, 
                   defense: 0,
                   accuracy: StandardAccuracy,
-                  avoidIAbility: StandardAvoidIAbility,
+                  avoidability: StandardAvoidability,
                   crit: 0, 
                   weaknesses: new List<Elements.Type>(), 
                   strengths: new List<Elements.Type>(), 
@@ -519,16 +519,16 @@ namespace KupoGames.Characters
 
         #endregion
 
-        #region AvoidIAbility
+        #region Avoidability
 
-        public void SetAvoidIAbility(int accuracy)
+        public void SetAvoidability(int accuracy)
         {
-            _avoidIAbility.BaseValue = accuracy;
+            _avoidability.BaseValue = accuracy;
         }
 
-        public CharacterStat GetAvoidIAbility()
+        public CharacterStat GetAvoidability()
         {
-            return _avoidIAbility;
+            return _avoidability;
         }
 
         #endregion
