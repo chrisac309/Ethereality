@@ -1,5 +1,6 @@
 ﻿
 using KupoGames.Characters;
+using KupoGames.Characters.Cloaks;
 using KupoGames.Meter;
 using KupoGames.Singletons;
 
@@ -37,9 +38,9 @@ namespace KupoGames.Abilities.PensiveAbilities
         {
             // Select a spirit to summon
             // Spirit = CharacterUI.ShowSummonSpiritOptions
-            Spirit s;
+            PensiveMeter.Spirits s = PensiveMeter.Spirits.None;
             Pensiveness pen = caster as Pensiveness;
-            pen.SummonSpirit(s);
+            pen.PenMeter.AddSpirit(s);
             return false;
         }
     }
