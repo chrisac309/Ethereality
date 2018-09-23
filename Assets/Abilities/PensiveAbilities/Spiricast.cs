@@ -52,7 +52,9 @@ namespace KupoGames.Abilities.PensiveAbilities
                 if (damage != BattleCalculator.AttackMissed)
                 {
                     enemyTargets[0].TakeDamage(damage);
+                    return true;
                 }
+                return false;
             }
 
             return false;

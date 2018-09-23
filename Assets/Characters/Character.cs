@@ -257,6 +257,7 @@ namespace KupoGames.Characters
                 {
                     if (a.Value <= GetCloakLevel().Value)
                     {
+                        // If the character is at or above the level the ability is unlocked, add it
                         _initialAbilities.Add(a.Key);
                     }
                 }
@@ -286,7 +287,7 @@ namespace KupoGames.Characters
         /// Used upon acquiring a new, PERMANENT IAbility
         /// </summary>
         /// <param name="additional"></param>
-        public void AddIAbility(IAbility additional)
+        public void AddAbility(IAbility additional)
         {
             _abilities.Add(additional);
         }
@@ -298,10 +299,10 @@ namespace KupoGames.Characters
 		/// <param name="enemyTargets"> The enemies that this IAbility will target. </param>
 		/// <param name="allyTargets"> The allies that this IAbility will target. </param>
 		/// <returns></returns>
-		public bool CastIAbility(IAbility cast, Character[] enemyTargets, Character[] allyTargets)
+		public bool CastAbility(IAbility cast, Character[] enemyTargets, Character[] allyTargets)
 		{
 			// First, pay the cost.
-			if(PayIAbilityCost(cast.Cost))
+			if(PayAbilityCost(cast.Cost))
 			{
 				// Then, activate the IAbility if the cost can be paid.
 				return cast.Activate(this, enemyTargets, allyTargets);
@@ -618,7 +619,7 @@ namespace KupoGames.Characters
 			SetCurrentActionMeter(GetCurrentActionMeter() + GetRegenRate());
 		}
 
-		private bool PayIAbilityCost(int costToCast)
+		private bool PayAbilityCost(int costToCast)
 		{
 			bool paid = false;
 			if(GetCurrentActionMeter() >= costToCast)
