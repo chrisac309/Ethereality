@@ -2,7 +2,7 @@
 using KupoGames.Characters.CharacterStats;
 using KupoGames.Singletons;
 using System.Collections.Generic;
-using System;
+using Assets.Abilities;
 
 /// <summary>
 /// Defines a battle character. To be used for battle scenarios.
@@ -47,6 +47,7 @@ namespace KupoGames.Characters
 		private List<Elements.Type> _weaknesses;
 		private List<Elements.Type> _strengths;
 		private List<Elements.Type> _immunities;
+        private List<StatusEffect> _currentStatusEffects = new List<StatusEffect>();
 
         #endregion
 
@@ -73,7 +74,7 @@ namespace KupoGames.Characters
         /// <param name="strengths"> A list of elemental strengths that the character has. </param>
         /// <param name="immunities"> A list of elemental immunities that the character has. </param>
         /// <param name="abilities"> The abilities that this character possesses. </param>
-        public Character(int level, int cloakLevel, int health, int attack, int defense, int accuracy, int avoidability, int crit, List<Elements.Type> weaknesses, List<Elements.Type> strengths, List<Elements.Type> immunities, Dictionary<IAbility, int> abilities) {
+        public Character(int level, int cloakLevel, int health, int attack, int defense, int accuracy, int avoidability, int crit, List<Elements.Type> weaknesses, List<Elements.Type> strengths, List<Elements.Type> immunities, List<StatusEffect> statusEffects, Dictionary<IAbility, int> abilities) {
             SetLevel(level);
 			SetCloakLevel(cloakLevel);
 			SetMaxHealth(health);
@@ -88,6 +89,7 @@ namespace KupoGames.Characters
 			SetElementalStrengths(strengths);
 			SetElementalImmunities(immunities);
 			SetCurrentAbilities(abilities);
+            SetStatusEffects(statusEffects);
             SetInitialMeter();
 		}
 
@@ -117,6 +119,7 @@ namespace KupoGames.Characters
                   weaknesses: new List<Elements.Type>(), 
                   strengths: new List<Elements.Type>(), 
                   immunities: new List<Elements.Type>(), 
+                  statusEffects: new List<StatusEffect>(),
                   abilities: new Dictionary<IAbility, int>())
 		{
 		}
@@ -630,7 +633,41 @@ namespace KupoGames.Characters
 			return paid;
 		}
 
-		#endregion
+        #endregion
 
-	}
+        #region Status Effects
+        private void SetStatusEffects(List<StatusEffect> statusEffects)
+        {
+            _currentStatusEffects = statusEffects;
+        }
+
+        public void AddStatus(StatusEffect status)
+        {
+            _currentStatusEffects.Add(status);
+        }
+
+        public void CheckAndApplyStatuses()
+        {
+            
+            for (int j = _currentStatusEffects.Count - 1; j >= 0; j--)
+            {
+                StatusEffect e = _currentStatusEffects[j];
+                e.Duration--;
+
+                if (e.Duration < 0)
+                {
+                    // Done with the status effect, remove it
+                    _currentStatusEffects.RemoveAt(j);
+                    // Call unapply
+                    e.UnapplyStatusEffect(this);
+                } else
+                {
+                    // Apply the status again for this turn
+                    e.ApplyStatusEffect(this);
+                }
+            }
+        }
+        #endregion
+
+    }
 }
